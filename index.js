@@ -56,31 +56,7 @@ var arr = [
 ];
 
 function mutateArray(a) {
-    let newA = [];
-
-    a.forEach(obj => {
-
-      function checker(obj) {
-        
-        let keys = Object.keys(obj);
-
-        keys.forEach(key => {
-          if(!obj[key].length && typeof obj[key] == "object") {
-            checker(obj[key]);
-          }
-          else if(key == "some_array") {
-            obj[key] = obj[key].reduce((sum, point) => sum + point, 0);
-          }
-        })
-        
-        return obj
-      }
-
-      newA.push(checker(obj));
-
-    });
-
-    return newA;
+    return a.filter(eachA => eachA.guest_type === "guest");
 }
 
 $(document).ready(function() {
