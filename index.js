@@ -56,7 +56,9 @@ var arr = [
 ];
 
 function mutateArray(a) {
-    return a.filter(eachA => eachA.guest_type === "guest");
+    return a.sort((a, b) => {
+      return a['last_name'] + b['first_name'] < a['last_name'] + b['first_name'] ? -1 : 1
+    });
 }
 
 $(document).ready(function() {
