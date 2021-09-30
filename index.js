@@ -4,11 +4,8 @@ var arr = [
     'first_name': 'Marco',
     'last_name': 'Burns',
     'guest_booking': {
-      'room_no': {
-        'room_no': 'A0073',
-        'some_arrays': [7,2,4]
-      },
-      'some_array': [7,2,4]
+      'room_no': 'C73',
+      'some_array': [1,3,5,2,4,3]
     },
   },
   {
@@ -60,30 +57,27 @@ var arr = [
 
 function mutateArray(a) {
     let newA = [];
+
     a.forEach(obj => {
 
-      let newObj = {
-        ...obj
-      }
+      function checker(obj) {
+        
+        let keys = Object.keys(obj);
 
-      let i = 0;
-      let keys = Object.keys(newObj)
-
-      while( i < keys.length ) {
-        if(!newObj[keys[i]].length && typeof newObj[keys[i]] === "object") {
-          let tempObj = newObj[keys[i]];
-          delete newObj[keys[i]]
-          newObj = {
-            ...newObj,
-            ...tempObj
+        keys.forEach(key => {
+          if(!obj[key].length && typeof obj[key] == "object") {
+            checker(obj[key]);
           }
-        }
-        else {
-          i++
-        }
-        keys = Object.keys(newObj)
+          else if(key == "some_array") {
+            obj[key] = obj[key].reduce((sum, point) => sum + point, 0);
+          }
+        })
+        
+        return obj
       }
-      newA.push(newObj)
+
+      newA.push(checker(obj));
+
     });
 
     return newA;
